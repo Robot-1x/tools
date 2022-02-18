@@ -1,5 +1,5 @@
 NAME=api-1.0.jar
-PATH=/root/algo/
+PA=/root/algo/
 
 #echo ----------File modify time: $NAME --------------
 modify_time=`stat -c %Y  $PATH$NAME`
@@ -12,8 +12,8 @@ ID=`ps -ef | grep "$NAME" | grep -v "$0" | grep -v "grep" | awk '{print $2}'`
 
 if [ -z $ID ]; then
     echo '--------No java proces running------------------'
-    cp $PATH$NAME $PATH${d1}"_"${NAME}
-    nohup java -jar $PATH$NAME  > ${PATH}log.log &
+    cp $PA$NAME $PA${d1}"_"${NAME}
+    nohup java -jar $PA$NAME  > ${PA}log.log &
     if [ $? -ne 0 ]; then
         LOG_WARN "Failed to get the performance baseline of $PHYSICAL_MODEL for $INSTANCE_FAMILIES."
         exit 2
@@ -25,9 +25,9 @@ else
     #echo $modify_time
 
     if [ $start_time -lt $modify_time ]; then
-        cp $PATH$NAME $PATH${d1}"_"${NAME}
+        cp $PA$NAME $PA${d1}"_"${NAME}
         kill -9 $ID
-        nohup java -jar $PATH$NAME  > ${PATH}log.log &
+        nohup java -jar $PA$NAME  > ${PATH}log.log &
         if [ $? -ne 0 ]; then
             LOG_WARN "Failed to get the performance baseline of $PHYSICAL_MODEL for $INSTANCE_FAMILIES."
             exit 2
